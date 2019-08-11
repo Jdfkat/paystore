@@ -1,0 +1,141 @@
+user@example.com
+123456
+
+1. Created form with basic fields to post to paypal [no return, notify_url, cancel set]
+2. Form being posted to paypal
+3. Paypal sends back response which are captured as a request in a controller and 
+   saved to a file [NOPE]
+   Solution: configure sandbox properly or use a live paypal for it
+   IPN simulator
+   return and notify [same routes?] to check
+   * Make sure that form is contructed properly [cmd values etc.]
+   * Make sure that route where ipn is posting back is working and is of type post
+   * Try to catch values posted back by IPN = check ipn history for this.
+
+how it was solved:
+
+1. make sure that form has the correct values
+2. make sure that ipn is on and the correct listener is set
+   for local test ipn you can use a tool to simula you hv a real server [e.g. ngrok]
+3. make sure that your curl config is okay and you validate your request, timeout check etc.
+4. if you are developing locally, make sure you have your cert installed on local development
+5. Make sure that the email for sanbox used [in the business field] is the email you get you get automatically for your sandbox
+   read at https://www.paypal-community.com/t5/Sandbox-Environment/paypal-payment-hasn-t-accepted-yet-status-while-testing-with/m-p/1555385#M2538
+
+Issuess:
+
+- payment status / amount don't save in db...text/json type don't work. / check controller, model fillable and migration fields type
+  used laravel debugar to investigate
+  for laravel less 5.5 https://github.com/barryvdh/laravel-debugbar/tree/2.4
+  
+  add the emails etc. in a config files so that they can be used properly
+  environment variables, then config variable
+
+  turn on ipn for sanbox emai
+
+
+- how to stop to listen to ipn once a successful message has been received?
+  https://stackoverflow.com/questions/19682013/paypal-ipn-sends-multiple-notifications-hours-after-payment-completed
+  https://stackoverflow.com/questions/19682013/paypal-ipn-sends-multiple-notifications-hours-after-payment-completed
+  To do [the above]
+  
+
+- IPN History doesn't display today's [09/09] data => make sure that your account is a business one [YES, account is business]
+  https://stackoverflow.com/questions/22959933/where-is-paypals-elusive-ipn-history
+
+- https://developer.paypal.com/docs/classic/ipn/ht-ipn/
+  update migrations for payment logs to include additional information such as txn_id etc.
+  see link above
+
+- payment status = to check what is th appropriate status?
+https://stackoverflow.com/questions/2433329/possible-payment-status-values
+https://stackoverflow.com/questions/19682013/paypal-ipn-sends-multiple-notifications-hours-after-payment-completed
+https://www.paypal-community.com/t5/Sandbox-Environment/Sandbox-Payment-Status-always-pending-why/td-p/1417716
+status still pending supposedly because email is not verified
+Status still pending supposedly because payer and buyer currency are different.
+Was supposed to use sandbox email rather than the payment eail.
+Read here : https://www.paypal-community.com/t5/Sandbox-Environment/paypal-payment-hasn-t-accepted-yet-status-while-testing-with/m-p/1555385#M2538
+
+https://dashboard.ngrok.com/status / python.gralf@gmail.com 
+
+
+jdfkat2006@gmail.com
+password: @passPayPAL19
+
+url: https://www.sandbox.paypal.com
+email: python.gralf@gmail.com
+password: @payPal19$
+
+Sandbox test email:
+email: sb-pzhh554963@business.example.com
+password: #Hy%>_y?
+
+https://ea93c183.ngrok.io
+
+url: https://www.sandbox.paypal.com
+email: python.gralf@gmail.com
+password: @payPal19$
+
+
+A bit confused:
+
+Which sandbox credentials to use? The one for my paypal [python.gralf or the one from sandbox account sb-pz...]
+Look IPN workds fine from the python.gralf one
+
+
+API username: python.gralf_api1.gmail.com
+API password: NXNJRLJHHTQQZ6JC
+Signature: AovsH2aee5eitzsHblVL4jqRvmJLAaMzYB9rv2vWUkCais-yOOVxWr2Y
+
+Sandbox:
+Client ID: AcurMWGUUI1uKhgvaBuyiwzXE-0kVJbrXYj3D41MkcOl-RFP2A_h9gmsby6ZIScOxBoFjUoQjmISoJc6
+Sandbox Account: sb-pzhh554963@business.example.com
+Secret: EHAoGjlxSCEvIIDvvCFWWOcjQ8k68bRNm-bDKeUxvBOBhsp7nV2BwmxAH2S-DTIsd3wSxq5OFjSxWhfe
+URL: https://www.sandbox.paypal.com/cgi-bin/webscr
+
+
+
+
+https://bed9cae2.ngrok.io/
+
+https://developer.paypal.com/developer/accounts/
+
+https://www.paypal.com/cgi-bin/customerprofileweb?cmd=_profile-ipn-notify
+
+20969451.ngrok.io
+
+http://20969451.ngrok.io/
+
+https://stackoverflow.com/questions/30017319/tunnel-a-localhost-subdirectory-through-ngrok
+
+https://bed9cae2.ngrok.io/paypal/notify
+
+https://bed9cae2.ngrok.io/items
+
+where to post form? 
+
+- https://ipnpb.sandbox.paypal.com/cgi-bin/webscr or
+https://sandbox.paypal.com/cgi-bin/webscr
+
+
+https://codeseekah.com/2012/02/11/how-to-setup-multiple-ipn-receivers-in-paypal/
+
+IPN Simulator to see what's happening
+
+1. Post to notify url work [e.g. when posting a form, data is received]
+2. SSL to be installed on the local or server
+3. CURL time out [savoir comment faire du curl a partir de Lara]
+   curl increased time out to 500 seconds didnt help. no error logged to error file
+   Troubleshoot why no post was received.
+
+
+
+https://developer.paypal.com/docs/classic/ipn/integration-guide/IPNTesting/#local-development-testing
+
+install ssl on wamp:
+https://curl.haxx.se/docs/sslcerts.html
+https://curl.haxx.se/docs/caextract.html
+
+https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_display-ipns-history
+
+https://www.paypal.com/in/smarthelp/article/how-long-is-the-ipn-timeout-length-ts1063
