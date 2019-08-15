@@ -17,7 +17,21 @@ class TestControler extends Controller
 
     public function success(Request $request){
 
-    	$this->testservice->success($request);
+    	$custom = json_decode($request->get('custom'), true);
+
+		if($custom['reference_type'] == 'video'){
+			//call video service
+			(new \App\Services\VideoPaymentService)->success($request);
+
+		} elseif($custom['reference_type'] == 'item') {
+			//call item service
+			(new \App\Services\ItemPaymentService)->success($request);
+
+		} else {
+			throw new Exception('invalid data');
+		}
+
+    	//$this->testservice->success($request);
     }
 
     public function ipn(){
