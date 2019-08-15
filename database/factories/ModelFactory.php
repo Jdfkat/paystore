@@ -33,3 +33,14 @@ $factory->define(App\Item::class, function (Faker\Generator $faker) {
         'price' => $faker->randomNumber(2),
     ];
 });
+
+
+/** @var \Illuminate\Database\Eloquent\Factory $factory */
+$factory->define(App\Video::class, function (Faker\Generator $faker) {
+    return [
+        'title' => $faker->word,
+        'description' => $faker->sentence,
+        'actor' => $faker->firstName,
+        'price' => $faker->randomNumber(2),
+    ];
+});

@@ -13,6 +13,7 @@ class VerifyCsrfToken extends BaseVerifier
      */
     protected $except = [
         //
-        '/paypal/notify'
+        '/paypal/notify',
+        '/serviceroute'
     ];
 }

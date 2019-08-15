@@ -5,7 +5,9 @@ return [
     'sanbox' => [
     	'ipnbusiness' => env('SANBOX_BUSINESS', 'sb-pzhh554963@business.example.com'),
 
-	    'ipnnotifynurl' => env('SANBOX_NOTIFY_URL', 'https://ea93c183.ngrok.io/paypal/notify')
+	    //'ipnnotifyurl' => env('SANBOX_NOTIFY_URL', 'https://d926b265.ngrok.io/paypal/notify')
+
+	    'ipnnotifyurl' => env('SANBOX_NOTIFY_URL', 'https://d926b265.ngrok.io/api/paypal-ipn')
     ],
 
     'live' => [

@@ -18,7 +18,10 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::post('/paypal/notify', 'PaypalController@notify');
+//Route::post('/paypal/notify', 'PaypalController@notify');
+Route::post('/paypal/notify', 'TestControler@success');
 Route::resource('items', 'ItemController');
+Route::resource('/videos', 'VideoController');
+Route::post('/serviceroute', 'TestControler@success');
 
 
